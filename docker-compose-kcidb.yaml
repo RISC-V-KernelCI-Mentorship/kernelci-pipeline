@@ -9,6 +9,7 @@ services:
 
   kcidb:
     container_name: 'kernelci-pipeline-kcidb'
+    image: 'kernelci/staging-kernelci:pipeline'
     env_file: ['.env']
     stop_signal: 'SIGINT'
     networks: ['kcidb']
@@ -18,7 +19,7 @@ services:
       - 'run'
       - '--name=pipeline_kcidb'
     volumes:
-      - './src:/home/kernelci/pipeline'
+#      - './src:/home/kernelci/pipeline'
       - './config:/home/kernelci/config'
       - './data/kcidb:/home/kernelci/data/kcidb'
       - './logs:/home/kernelci/logs'
