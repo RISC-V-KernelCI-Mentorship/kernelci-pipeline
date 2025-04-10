@@ -13,9 +13,7 @@ services:
     stop_signal: 'SIGINT'
     networks: ['kcidb']
     command:
-      - '/usr/bin/env'
-      - 'python3'
-      - '/home/kernelci/pipeline/send_kcidb.py'
+      - './src/send_kcidb.py'
       - '--settings=${KCI_SETTINGS:-/home/kernelci/config/kernelci.toml}'
       - 'run'
       - '--name=pipeline_kcidb'
