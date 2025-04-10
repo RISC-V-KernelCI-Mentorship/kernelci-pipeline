@@ -156,7 +156,7 @@ services:
       - *setting-arg
       - 'loop'
 
-  timeout-task:
+  timeout:
     <<: *base-service
     container_name: 'kernelci-pipeline-timeout'
     command:
@@ -166,7 +166,7 @@ services:
       - 'run'
       - '--mode=timeout'
 
-  timeout-task-closing:
+  timeout-closing:
     <<: *base-service
     container_name: 'kernelci-pipeline-closing'
     command:
@@ -176,7 +176,7 @@ services:
       - 'run'
       - '--mode=closing'
 
-  timeout-task-holdoff:
+  timeout-holdoff:
     <<: *base-service
     container_name: 'kernelci-pipeline-holdoff'
     command:
