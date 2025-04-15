@@ -30,7 +30,7 @@ services:
   result_summary:
     <<: *base-service
     container_name: 'kernelci-pipeline-result-summary'
-    entrypoint:
+    command:
       - './src/result_summary.py'
       - *config-arg
       - *setting-arg
