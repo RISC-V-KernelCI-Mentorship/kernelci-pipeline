@@ -210,7 +210,22 @@ def async_job_submit(api_helper, node_id, job_callback):
     log_parser = job_callback.get_log_parser()
     job_result = job_callback.get_job_status()
     device_id = job_callback.get_device_id()
-    storage_config_name = job_callback.get_meta('storage_config_name')
+    storage_config_name = job_callback.get_job_definition('metadata').get('storage_config_name')
+    input_file_types = [
+      'nfsrootfs',
+      'rootfs',
+      'ramdisk',
+      'initrd',
+      'ndbroot',
+      'persistent_nfs'
+    ]
+    job_actions = job_callback.get_job_definition('actions')
+    if job_actions and len(job_actions) > 0:
+        deploy = job_actions[0].get('deploy')
+        if deploy:
+            for input_file in input_file_types:
+                if deploy.get(input_file):
+                    job_node['artifacts']["input_"+input_file] = deploy.get(input_file).get('url')
     storage = _get_storage(storage_config_name)
     log_txt_url = _upload_log(log_parser, job_node, storage)
     if log_txt_url:
@@ -287,7 +302,7 @@ async def callback(node_id: str, request: Request):
         item['message'] = 'Error decoding JSON'
         return JSONResponse(content=item, status_code=400)
     job_callback = kernelci.runtime.lava.Callback(data)
-    api_config_name = job_callback.get_meta('api_config_name')
+    api_config_name = job_callback.get_job_definition('metadata').get('api_config_name')
     api_token = os.getenv('KCI_API_TOKEN')
     api_helper = _get_api_helper(api_config_name, api_token)
 
