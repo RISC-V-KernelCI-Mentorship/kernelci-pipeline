@@ -120,6 +120,7 @@ jobs:
   baseline-arm-broonie: *baseline-job
   baseline-arm-baylibre: *baseline-job
   baseline-arm-clabbe: *baseline-job
+  baseline-arm-kontron: *baseline-job
   baseline-arm-mfd: *baseline-job
   baseline-arm-pengutronix: *baseline-job
   baseline-arm64: *baseline-job
@@ -128,6 +129,7 @@ jobs:
   baseline-arm64-clabbe: *baseline-job
   baseline-arm64-kcidebug-mediatek: *baseline-job
   baseline-arm64-kcidebug-qualcomm: *baseline-job
+  baseline-arm64-kontron: *baseline-job
   baseline-arm64-mfd: *baseline-job
   baseline-arm64-pengutronix: *baseline-job
   baseline-arm64-qualcomm: *baseline-job
@@ -198,6 +200,9 @@ jobs:
     params:
       <<: *kbuild-clang-17-arm-android-params
       defconfig: omap2plus_defconfig
+    rules:
+      tree:
+      - 'omap'
 
   kbuild-clang-17-arm-android-vexpress_defconfig:
     <<: *kbuild-clang-17-arm-android-job
@@ -559,6 +564,20 @@ jobs:
       fragments:
         - 'CONFIG_CPU_BIG_ENDIAN=y'
 
+  kbuild-gcc-12-arm-cip-allnoconfig:
+    <<: *kbuild-gcc-12-arm-allnoconfig-job
+    params:
+      <<: *kbuild-gcc-12-arm-params
+      defconfig:
+        - multi_v7_defconfig
+        - allnoconfig
+      fragments:
+        - 'cip://6.1.y-cip/arm/qemu_arm_defconfig'
+    rules:
+      branch:
+        - 'cip:linux-6.1.y-cip'
+        - 'cip:linux-6.1.y-cip-rt'
+
   kbuild-gcc-12-arm-SMP:
     <<: *kbuild-gcc-12-arm-allnoconfig-job
     params:
@@ -615,6 +634,9 @@ jobs:
     params:
       <<: *kbuild-gcc-12-arm-android-params
       defconfig: omap2plus_defconfig
+    rules:
+      tree:
+      - 'omap'
 
   kbuild-gcc-12-arm-android-vexpress_defconfig:
     <<: *kbuild-gcc-12-arm-android-job
@@ -738,17 +760,9 @@ jobs:
       tree:
       - 'chrome-platform'
       - 'kernelci'
-      - 'stable-rc'
-      - 'stable'
-
-  kbuild-gcc-12-arm-omap1_defconfig:
-    <<: *kbuild-gcc-12-arm-job
-    params:
-      <<: *kbuild-gcc-12-arm-params
-      defconfig: omap1_defconfig
-    rules:
-      tree:
       - 'omap'
+      - 'stable'
+      - 'stable-rc'
 
   kbuild-gcc-12-arm-omap2plus_defconfig:
     <<: *kbuild-gcc-12-arm-job
@@ -757,10 +771,7 @@ jobs:
       defconfig: omap2plus_defconfig
     rules:
       tree:
-      - 'kernelci'
       - 'omap'
-      - 'stable-rc'
-      - 'stable'
 
   kbuild-gcc-12-arm-preempt_rt:
     <<: *kbuild-gcc-12-arm-job
@@ -796,6 +807,9 @@ jobs:
         - 'lab-setup'
         - 'kselftest'
         - 'arm64-chromebook'
+    rules:
+      tree:
+      - '!omap'
 
   kbuild-gcc-12-arm64-allnoconfig:
     <<: *kbuild-gcc-12-arm64-job
@@ -892,6 +906,9 @@ jobs:
       fragments:
         - 'arm64-chromebook'
         - 'kselftest'
+    rules:
+      tree:
+      - '!omap'
 
   # Default config and build only job
   kbuild-gcc-12-arm64-build-only:
@@ -918,6 +935,9 @@ jobs:
         - arm64-chromebook
         - kcidebug
         - lab-setup
+    rules:
+      tree:
+      - '!omap'
 
   kbuild-gcc-12-arm64-dtbscheck:
     <<: *kbuild-gcc-12-arm64-job
@@ -936,6 +956,8 @@ jobs:
         - 'kselftest'
     rules:
       <<: *kbuild-kselftest-rules
+      tree:
+      - '!omap'
 
   kbuild-gcc-12-arm64-mainline: &kbuild-gcc-12-arm64-mainline-job
     <<: *kbuild-gcc-12-arm64-job
@@ -968,6 +990,9 @@ jobs:
         - 'debug'
         - 'kselftest'
         - 'tinyconfig'
+    rules:
+      tree:
+      - '!omap'
 
   kbuild-gcc-12-arm64-mfd:
     <<: *kbuild-gcc-12-arm64-job
@@ -1251,6 +1276,9 @@ jobs:
         - 'lab-setup'
         - 'x86-board'
         - 'kselftest'
+    rules:
+      tree:
+      - '!omap'
 
   kbuild-gcc-12-x86-allnoconfig:
     <<: *kbuild-gcc-12-x86-job
@@ -1603,6 +1631,15 @@ jobs:
       <<: *kselftest-params
       collections: landlock
     kcidb_test_suite: kselftest.landlock
+
+  # No hugepages allocation (for architectures without it)
+  kselftest-mm:
+    <<: *kselftest-job
+    params:
+      <<: *kselftest-params
+      extra_kernel_args: "secretmem.enable kpti=off"
+      collections: mm
+    kcidb_test_suite: kselftest.mm
 
   # hugepages allocation suitable for machines with 2G of memory
   kselftest-mm-2g:

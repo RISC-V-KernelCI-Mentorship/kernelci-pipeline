@@ -230,9 +230,15 @@ build_configs:
     branch: 'for-next'
 
   android_mainline: &android
-    <<: *base-arm
     tree: android
     branch: 'android-mainline'
+    architectures:
+      - x86_64
+      - i386
+      - arm64
+      - arm
+      - riscv
+      - um
 
   android_mainline_tracking:
     <<: *android
@@ -403,29 +409,44 @@ build_configs:
     <<: *chromiumos
     branch: 'chromeos-6.12'
 
-  cip-4.4: &cip
+  cip: &cip
     <<: *base
     tree: cip
+    architectures:
+      - arm
+      - arm64
+      - riscv
+      - x86_64
+
+  cip-4.4: &cip-4-4
+    <<: *cip
     branch: 'linux-4.4.y-cip'
+    architectures:
+      - arm
+      - x86_64
 
   cip-4.4-rt:
-    <<: *cip
+    <<: *cip-4-4
     branch: 'linux-4.4.y-cip-rt'
 
   cip-4.4-st:
-    <<: *cip
+    <<: *cip-4-4
     branch: 'linux-4.4.y-st'
 
-  cip-4.19:
+  cip-4.19: &cip-4-19
     <<: *cip
     branch: 'linux-4.19.y-cip'
+    architectures:
+      - arm
+      - arm64
+      - x86_64
 
   cip-4.19-rt:
-    <<: *cip
+    <<: *cip-4-19
     branch: 'linux-4.19.y-cip-rt'
 
   cip-4.19-st:
-    <<: *cip
+    <<: *cip-4-19
     branch: 'linux-4.19.y-st'
 
   cip-5.10:
@@ -443,6 +464,10 @@ build_configs:
   cip-6.1-rt:
     <<: *cip
     branch: 'linux-6.1.y-cip-rt'
+
+  cip-6.12:
+    <<: *cip
+    branch: 'linux-6.12.y-cip'
 
   clk:
     <<: *base-arm
@@ -532,7 +557,7 @@ build_configs:
     <<: *linusw
     branch: 'for-next'
 
-  linux-pci: &linux-pci
+  linux-pci_next: &linux-pci
     tree: linux-pci
     branch: 'next'
     architectures:
@@ -543,6 +568,10 @@ build_configs:
   linux-pci_for-linus:
     <<: *linux-pci
     branch: 'for-linus'
+
+  linux-pci_for-kernelci:
+    <<: *linux-pci
+    branch: 'for-kernelci'
 
   mainline:
     <<: *base
@@ -591,9 +620,10 @@ build_configs:
     branch: 'pending-fixes'
 
   omap:
-    <<: *base-arm
     tree: omap
     branch: 'for-next'
+    architectures:
+      - arm
 
   padovan:
     <<: *base-standard

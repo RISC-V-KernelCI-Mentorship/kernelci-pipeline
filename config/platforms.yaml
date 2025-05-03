@@ -184,6 +184,36 @@ platforms:
     dtb: dtbs/ti/k3-j721e-beagleboneai64.dtb
     compatible: ['beagle,j721e-beagleboneai64', 'ti,j721e']
 
+  kontron-bl-imx8mm:
+    <<: *arm64-device
+    mach: imx
+    dtb: dtbs/freescale/imx8mm-kontron-bl.dtb
+    compatible: ['kontron,imx8mm-bl', 'kontron,imx8mm-sl', 'fsl,imx8mm']
+
+  kontron-kbox-a-230-ls:
+    <<: *arm64-device
+    mach: freescale
+    dtb: dtbs/freescale/fsl-ls1028a-kontron-kbox-a-230-ls.dtb
+    compatible: ['kontron,kbox-a-230-ls', 'kontron,sl28-var4', 'kontron,sl28', 'fsl,ls1028a']
+
+  kontron-kswitch-d10-mmt-6g-2gs:
+    <<: *arm-device
+    mach: microchip
+    dtb: dtbs/lan966x-kontron-kswitch-d10-mmt-6g-2gs.dtb
+    compatible: ['kontron,kswitch-d10-mmt-6g-2gs', 'kontron,s1921', 'microchip,lan9668', 'microchip,lan966']
+
+  kontron-kswitch-d10-mmt-8g:
+    <<: *arm-device
+    mach: microchip
+    dtb: dtbs/lan966x-kontron-kswitch-d10-mmt-8g.dtb
+    compatible: ['kontron,kswitch-d10-mmt-8g', 'kontron,s1921', 'microchip,lan9668', 'microchip,lan966']
+
+  kontron-sl28-var3-ads2:
+    <<: *arm64-device
+    mach: freescale
+    dtb: dtbs/freescale/fsl-ls1028a-kontron-sl28-var3-ads2.dtb
+    compatible: ['kontron,sl28-var3-ads2', 'kontron,sl28-var3', 'kontron,sl28', 'fsl,ls1028a']
+
   kubernetes:
 
   meson-axg-s400:
@@ -300,6 +330,20 @@ platforms:
     mach: qcom
     dtb: dtbs/qcom/qcs6490-rb3gen2.dtb
     compatible: ['qcom,qcs6490-rb3gen2', 'qcom,qcm6490']
+
+  qcs8300-ride:
+    <<: *arm64-device
+    boot_method: fastboot
+    mach: qcom
+    dtb: dtbs/qcom/qcs8300-ride.dtb
+    compatible: ['qcom,qcs8300-ride', 'qcom,qcs8300']
+
+  qcs9100-ride:
+    <<: *arm64-device
+    boot_method: fastboot
+    mach: qcom
+    dtb: dtbs/qcom/qcs9100-ride.dtb
+    compatible: ['qcom,qcs9100-ride', 'qcom,qcs9100']
 
   qemu: &qemu-device
     base_name: qemu
@@ -436,7 +480,7 @@ platforms:
     <<: *arm-device
     mach: allwinner
     dtb: dtbs/sun9i-a80-cubieboard4.dtb
-    compatible: ['cubietech,a80-cubieboard4", "allwinner,sun9i-a80']
+    compatible: ['cubietech,a80-cubieboard4', 'allwinner,sun9i-a80']
 
   sun50i-a64-pine64-plus:
     <<: *arm64-device
