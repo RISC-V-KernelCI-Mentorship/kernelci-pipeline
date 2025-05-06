@@ -334,10 +334,6 @@ class KCIDBBridge(Service):
                 artifacts=artifacts,
                 exclude_properties=('build_log', '_config')
             )
-            parsed_build_node['input_files'] = self._get_input_files(
-                artifacts=artifacts,
-                exclude_properties=None
-            )
             parsed_build_node['config_url'] = artifacts.get('_config')
             parsed_build_node['log_url'] = artifacts.get('build_log')
             log_url = parsed_build_node['log_url']
