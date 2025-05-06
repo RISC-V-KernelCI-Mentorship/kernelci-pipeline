@@ -195,7 +195,7 @@ class KCIDBBridge(Service):
         for name, url in artifacts.items():
             if exclude_properties and name in exclude_properties:
                 continue
-            if not "input_" in name:
+            if "input_" not in name:
                 # Skip output files
                 continue
             # Replace "/" with "_" to match with the allowed pattern
