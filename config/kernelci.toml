@@ -5,6 +5,7 @@ storage_config = "docker-host"
 verbose = true
 
 [trigger]
+force = 1
 # how often to poll git trees for new commits
 poll_period = 0
 # delay first git poll after startup
@@ -37,13 +38,13 @@ output = "/home/kernelci/data/output"
 [notifier]
 
 [send_kcidb]
-kcidb_topic_name = "playground_kcidb_new"
-kcidb_project_id = "kernelci-production"
-database_name = "playground_kcidb"
-postgresql_host = "kernelci-pipeline-postgres-proxy"
+kcidb_topic_name = "localhost"
+kcidb_project_id = "localhost"
+database_name = "localhost"
+postgresql_host = "localhost"
 postgresql_port = 5432
 postgresql_user = "kernelci.org"
-# postgresql_password = "KCIDB-POSTGRESQL-USER-PASSWORD"
+postgresql_password = "password"
 origin = "maestro"
 
 [test_report]
@@ -59,20 +60,11 @@ email_recipient = "kernelci-results-staging@groups.io"
 [storage.docker-host]
 storage_cred = "/home/kernelci/data/ssh/id_rsa_tarball"
 
-[storage.k8s-host]
-storage_cred = "/home/kernelci/data/ssh/id_rsa_tarball"
-
+[jwt]
 # JWT secret to generate Pipeline API tokens
-#[jwt]
-#secret = "SomeSecretString"
+secret = "0123456789"
 
-# Azure secret token to upload artifacts to Azure files storage
-#[storage.staging-azure]
-#storage_cred = "?sv=......"
+[runtime.lava-cloudv]
+runtime_token = "j5cuu2wgj5lijzgaqb2eoec30qkfqi6h83dapee4ex3k1rml0faex0z0t8rr04ownlemuw6es5zj6l5ukqi0pimglghc50la41e6c2wagbt7ikw99ypkcasbsaqzwy02"
+callback_token = "j5cuu2wgj5lijzgaqb2eoec30qkfqi6h83dapee4ex3k1rml0faex0z0t8rr04ownlemuw6es5zj6l5ukqi0pimglghc50la41e6c2wagbt7ikw99ypkcasbsaqzwy02"
 
-#[runtime.lava-collabora]
-# runtime_token is the token used to authenticate with the LAVA server
-# callback_token is the token used by LAVA in callback data 
-# in case callback_token is not set, runtime_token is expected to be used
-#runtime_token = "REPLACE-LAVA-TOKEN-GENERATED-BY-LAB-LAVA-COLLABORA"
-#callback_token = "REPLACE-LAVA-TOKEN-GENERATED-BY-LAB-LAVA-COLLABORA"

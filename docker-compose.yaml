@@ -14,7 +14,7 @@ services:
 
   monitor: &base-service
     container_name: 'kernelci-pipeline-monitor'
-    image: 'kernelci/staging-kernelci:pipeline'
+    image: 'local/staging-kernelci:pipeline'
     env_file: ['.env']
     stop_signal: 'SIGINT'
     command:
@@ -88,28 +88,9 @@ services:
       - 'loop'
       - '--name=scheduler_lava'
       - '--runtimes'
-      - 'lava-collabora'
-      - 'lava-collabora-staging'
-      - 'lava-clabbe'
-      - 'lava-broonie'
-      - 'lava-baylibre'
-      - 'lava-qualcomm'
-      - 'lava-cip'
-      - 'lava-pengutronix'
-      - 'lava-kontron'
-
-  scheduler-k8s:
-    <<: *scheduler
-    container_name: 'kernelci-pipeline-scheduler-k8s'
-    command:
-      - './src/scheduler.py'
-      - *config-arg
-      - *setting-arg
-      - 'loop'
-      - '--name=scheduler_k8s'
-      - '--runtimes'
-      - 'k8s-gke-eu-west4'
-      - 'k8s-all'
+      - 'lava-cloudv'
+    extra_hosts:
+      - "master1:host-gateway"
 
   tarball:
     <<: *base-service
@@ -205,17 +186,27 @@ services:
   lava-callback:
     <<: *base-service
     container_name: 'kernelci-pipeline-lava-callback'
-    image: 'kernelci/staging-kernelci:lava-callback'
+    image: 'local/staging-kernelci:lava-callback'
     ports:
       - '${LAVA_CALLBACK_PORT:-8100}:8000'
     # With Werkzeug development server, not suitable for a public instance
     command:
-      - './src/lava_callback.py'
-      - *config-arg
-      - *setting-arg
+      - 'uvicorn'
+      - 'lava_callback:app'
+      - '--host'
+      - '0.0.0.0'
+      - '--port'
+      - '8000'
+      - '--app-dir'
+      - '/home/kernelci/src/'
+      # - *config-arg
+      # - *setting-arg
     volumes:
       - './config:/home/kernelci/config'
       - './data/ssh:/home/kernelci/data/ssh'
+    extra_hosts:
+      - "master1:host-gateway"
+      - "lab-slave-0:host-gateway"
 
   kcidb:
     <<: *base-service
