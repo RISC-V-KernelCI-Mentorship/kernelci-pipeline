@@ -27,20 +27,6 @@ services:
       - './logs:/home/kernelci/logs'
     restart: on-failure
 
-  result_summary:
-    <<: *base-service
-    container_name: 'kernelci-pipeline-result-summary'
-    command:
-      - './src/result_summary.py'
-      - *config-arg
-      - *setting-arg
-      - 'run'
-      - '--config=${CONFIG:-/home/kernelci/config/result-summary.yaml}'
-    volumes:
-      - './config:/home/kernelci/config'
-      - './data/output:/home/kernelci/data/output'
-      - './logs:/home/kernelci/logs'
-
   scheduler: &scheduler
     <<: *base-service
     container_name: 'kernelci-pipeline-scheduler'
@@ -118,24 +104,6 @@ services:
       - 'run'
       - '--trees=kernelci,netdev-testing'
       - '--name=trigger'
-
-  regression_tracker:
-    <<: *base-service
-    container_name: 'kernelci-pipeline-regression_tracker'
-    command:
-      - './src/regression_tracker.py'
-      - *config-arg
-      - *setting-arg
-      - 'run'
-
-  test_report:
-    <<: *base-service
-    container_name: 'kernelci-pipeline-test_report'
-    command:
-      - './src/test_report.py'
-      - *config-arg
-      - *setting-arg
-      - 'loop'
 
   timeout:
     <<: *base-service

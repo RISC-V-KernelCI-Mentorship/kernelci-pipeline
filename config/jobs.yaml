@@ -377,6 +377,10 @@ jobs:
     <<: *kunit-job
     params:
       arch: x86_64
+    rules:
+      tree:
+        - '!omap'
+        - '!chromiumos'
 
   ltp-cap-bounds:
     <<: *ltp-job
