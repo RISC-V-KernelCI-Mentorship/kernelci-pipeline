@@ -17,13 +17,13 @@ platforms:
 
   qemu:
     base_name: qemu
-    arch: riscv
+    arch: riscv64
     boot_method: qemu
     mach: qemu
     context:
       arch: riscv64
-      cpu: virt
-      guestfs_interface: ide
+      machine: virt
+      guestfs_interface: virtio
 
   docker:
 
