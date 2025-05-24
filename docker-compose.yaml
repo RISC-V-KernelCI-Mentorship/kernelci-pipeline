@@ -74,7 +74,7 @@ services:
       - 'loop'
       - '--name=scheduler_lava'
       - '--runtimes'
-      - 'lava-cloudv'
+      - 'lava-local'
     extra_hosts:
       - "master1:host-gateway"
 

@@ -62,7 +62,6 @@ storage_cred = "/home/kernelci/data/ssh/id_rsa_tarball"
 # JWT secret to generate Pipeline API tokens
 secret = "0123456789"
 
-[runtime.lava-cloudv]
-runtime_token = "j5cuu2wgj5lijzgaqb2eoec30qkfqi6h83dapee4ex3k1rml0faex0z0t8rr04ownlemuw6es5zj6l5ukqi0pimglghc50la41e6c2wagbt7ikw99ypkcasbsaqzwy02"
-callback_token = "j5cuu2wgj5lijzgaqb2eoec30qkfqi6h83dapee4ex3k1rml0faex0z0t8rr04ownlemuw6es5zj6l5ukqi0pimglghc50la41e6c2wagbt7ikw99ypkcasbsaqzwy02"
-
+[runtime.lava-local]
+runtime_token = "local-kernelci-token"
+callback_token = "local-kernelci-token"

@@ -32,9 +32,9 @@ scheduler:
     event: &kbuild-clang-17-riscv-node-event
       <<: *node-event-kbuild
       name: kbuild-clang-17-riscv
-    runtime: &lava-cloudv-runtime
+    runtime: &lava-local-runtime
       type: lava
-      name: lava-cloudv
+      name: lava-local
     platforms:
       - qemu
 

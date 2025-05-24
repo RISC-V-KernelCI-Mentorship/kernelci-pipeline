@@ -27,12 +27,12 @@ runtimes:
       - '/var/home/tollsimy/lfx-mentorship/kernelCI/kernelci-deploy/localinstall/kernelci/kernelci-pipeline/data/ssh/:/home/kernelci/data/ssh'
       - '/var/home/tollsimy/lfx-mentorship/kernelCI/kernelci-deploy/localinstall/kernelci/kernelci-pipeline/data/output/:/home/kernelci/data/output'
 
-  lava-cloudv:
+  lava-local:
     lab_type: lava
-    url: 'http://master1:10070/'
+    url: 'http://localhost:10070/'
     notify:
       callback:
-        token: kernelci-local
+        token: local-kernelci-token
     rules:
       tree:
       - 'mainline'
