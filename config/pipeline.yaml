@@ -29,7 +29,7 @@ runtimes:
 
   lava-local:
     lab_type: lava
-    url: 'http://localhost:10070/'
+    url: 'http://lava-master-local:10070/'
     notify:
       callback:
         token: local-kernelci-token

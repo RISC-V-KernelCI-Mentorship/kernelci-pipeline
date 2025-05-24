@@ -76,7 +76,7 @@ services:
       - '--runtimes'
       - 'lava-local'
     extra_hosts:
-      - "master1:host-gateway"
+      - "lava-master-local:host-gateway"
 
   tarball:
     <<: *base-service
@@ -174,7 +174,7 @@ services:
       - './data/ssh:/home/kernelci/data/ssh'
     extra_hosts:
       - "master1:host-gateway"
-      - "lab-slave-0:host-gateway"
+      - "lab-slave-local:host-gateway"
 
   kcidb:
     <<: *base-service
