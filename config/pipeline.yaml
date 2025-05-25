@@ -24,8 +24,8 @@ runtimes:
     user: 'root'  # Docker-in-Docker
     volumes:
       # Note: Absolute paths on the host are required here
-      - '/var/home/tollsimy/lfx-mentorship/kernelCI/kernelci-deploy/localinstall/kernelci/kernelci-pipeline/data/ssh/:/home/kernelci/data/ssh'
-      - '/var/home/tollsimy/lfx-mentorship/kernelCI/kernelci-deploy/localinstall/kernelci/kernelci-pipeline/data/output/:/home/kernelci/data/output'
+      - 'data/ssh/:/home/kernelci/data/ssh'
+      - 'data/output/:/home/kernelci/data/output'
 
   lava-local:
     lab_type: lava
